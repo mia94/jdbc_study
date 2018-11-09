@@ -8,12 +8,16 @@ import javax.swing.JOptionPane;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+import javafx.scene.effect.Shadow;
 import jdbc_study.dao.DepartmentDao;
 import jdbc_study.dao.DepartmentDaoImpl;
 import jdbc_study.dto.Department;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DepartmentDaoTest {
 	static DepartmentDao dao;
 	@BeforeClass
@@ -29,7 +33,7 @@ public class DepartmentDaoTest {
 	}
 
 	@Test
-	public void testSelectDepartmentByAll() {
+	public void test01SelectDepartmentByAll() {
 		List<Department> list = dao.selectDepartmentByAll();
 		for(Department dept : list) {
 			MySQLJdbcUtilTest.LOG.debug(dept);
@@ -38,7 +42,7 @@ public class DepartmentDaoTest {
 		Assert.assertNotEquals(0, list.size());//괄호안의 두 값이 달라야(not equals) 성공한것
 	}
 	@Test
-	public void testInsertDepartment() {
+	public void test02InsertDepartment() {
 		Department newDept = new Department(4, "자바개발부서", 15);
 		try {
 			int res = dao.insertDepartment(newDept);
@@ -53,15 +57,39 @@ public class DepartmentDaoTest {
 	}
 	
 	@Test
-	public void testDeleteDepartment() {
+	public void test04DeleteDepartment() {
+		Department delDept = new Department(4);
+		try {
+			int res = dao.deleteDepartment(delDept);
+			Assert.assertEquals(1, res);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "삭제실패");
+		}
+		test01SelectDepartmentByAll();
 	}
 	
 	@Test
-	public void testUpdateDepartment() {
+	public void test03UpdateDepartment() {
+		Department updateDept = new Department();
+		try {
+			int res = dao.updateDepartment(updateDept);
+			Assert.assertEquals(1, res);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "수정실패");
+		}
+		test01SelectDepartmentByAll();
+		
 	}
 	
 	@Test
-	public void testSelectDepartment() {
+	public void test05SelectDepartment() {
+		Department selDept = new Department(1);
+		try {
+			Department res = dao.selectDepartmentByNo(selDept);
+			JOptionPane.showMessageDialog(null, res);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"검색 실패");
+		}
 	}
 
 }
