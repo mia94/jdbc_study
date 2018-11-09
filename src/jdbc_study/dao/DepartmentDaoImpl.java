@@ -59,21 +59,55 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	}
 
 	@Override
-	public int deleteDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDepartment(Department department) throws SQLException {
+		String sql = "delete from department where deptNo = ? ";
+		int res = 0;
+		
+		try(Connection conn = MySQLJdbcUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);){
+			pstmt.setInt(1,department.getDeptNo());
+			LOG.debug(pstmt);
+			res = pstmt.executeUpdate();
+		}
+		
+		return res;
 	}
 
 	@Override
-	public int updateDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateDepartment(Department department) throws SQLException {
+		String sql = "update department set deptName = ?, floor = ? where deptNo = ?";
+		int res = 0;
+		
+		try(Connection conn = MySQLJdbcUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);){
+			pstmt.setString(1, "자바테스트");
+			pstmt.setInt(2, 20);
+			pstmt.setInt(3, 5);
+			LOG.debug(pstmt);
+			res = pstmt.executeUpdate();
+		}
+		
+		return res;
 	}
 
 	@Override
-	public Department selectDepartmentByNo(Department department) {
-		// TODO Auto-generated method stub
-		return null;
+	public Department selectDepartmentByNo(Department department) throws SQLException {
+		Department seldept = null;
+		String sql = "select deptNo, deptName, floor from department where deptNo = ?";
+		
+		try(Connection conn = MySQLJdbcUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, department.getDeptNo());//괄호안에 들어갈수 없는 명령
+			LOG.debug(pstmt);
+			try(ResultSet rs = pstmt.executeQuery();){//나중에 날려줘야 함
+				if (rs.next()) {
+					seldept = getDepartment(rs);
+				}
+			}
+			
+		}
+
+		return seldept;
 	}
 
 }
