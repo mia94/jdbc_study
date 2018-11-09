@@ -1,0 +1,52 @@
+package jdbc_study.dto;
+
+public class Department {
+	private int deptNo;
+	private String deptName;
+	private int floor;
+	
+	
+	public Department() {
+
+	}
+	//생성자 만들기, 번호만으로 검색하거나 모두 검색하거나 등등 모두 필요
+	public Department(int deptNo) {
+		this.deptNo = deptNo;
+	}
+
+	public Department(int deptNo, String deptName, int floor) {
+		this.deptNo = deptNo;
+		this.deptName = deptName;
+		this.floor = floor;
+	}
+	
+	//get, set
+	public int getDeptNo() {
+		return deptNo;
+	}
+	public void setDeptNo(int deptNo) {
+		this.deptNo = deptNo;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public int getFloor() {
+		return floor;
+	}
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
+	
+	//toString
+	@Override
+	public String toString() {
+		return String.format("Department [deptNo=%s, deptName=%s, floor=%s]", deptNo, deptName, floor);
+	}
+	
+	
+	
+	
+}
