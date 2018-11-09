@@ -41,6 +41,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		return new Department(deptNo, deptName, floor);
 	}
 
+	@Override
+	public int insertDepartment(Department department) throws SQLException {
+		String sql = "insert into department values(?,?,?)";
+		int res = 0;
+		
+		try(Connection conn = MySQLJdbcUtil.getConnection();//순서 꼭 맞춰서 써야함
+				PreparedStatement pstmt = conn.prepareStatement(sql);){//아직 ?상태로 비어있기 때문에 Re X
+			pstmt.setInt(1, department.getDeptNo());//첫번째 매개변수라는 의미로 1이 들어감
+			pstmt.setString(2, department.getDeptName());
+			pstmt.setInt(3, department.getFloor());//?에 값을 다 넣음
+			LOG.debug(pstmt);
+			res = pstmt.executeUpdate();//executeUpdate 리턴타입이 int
+		}
+		
+		return res;
+	}
+
 }
 
 
