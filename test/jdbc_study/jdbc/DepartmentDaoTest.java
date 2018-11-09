@@ -78,7 +78,6 @@ public class DepartmentDaoTest {
 			JOptionPane.showMessageDialog(null, "수정실패");
 		}
 		test01SelectDepartmentByAll();
-		
 	}
 	
 	@Test
