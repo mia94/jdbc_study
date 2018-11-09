@@ -9,4 +9,8 @@ public interface DepartmentDao {
 	List<Department> selectDepartmentByAll();//유틸의 리스트 import, Department import//exception추가됨
 	//insert를 성공여부를 숫자로 리턴해줌
 	int insertDepartment(Department department) throws SQLException;
+	
+	int deleteDepartment(Department department) throws SQLException;
+	int updateDepartment(Department department) throws SQLException;
+	Department selectDepartmentByNo(Department department) throws SQLException;
 }
