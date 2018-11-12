@@ -25,7 +25,7 @@ FATAL : 가장 크리티컬한 에러가 일어 났을 때 사용한다.
 
 		<File name="file" fileName="./logs/jdbc_study.log" append="true">
 			<PatternLayout
-				pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss}] %m%n" />
+				pattern="[%d{yyyy-MM-dd}] %m%n" />
 		</File>
 
 		<!-- 일자별 로그 -->
