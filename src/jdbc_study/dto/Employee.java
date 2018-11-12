@@ -15,7 +15,7 @@ public class Employee {
 	
 	public Employee() {
 	}
-	
+
 	public Employee(int empNo, String empName, String title, Employee manager, int salary, Department dept) {
 		this.empNo = empNo;
 		this.empName = empName;
@@ -76,7 +76,7 @@ public class Employee {
 	@Override
 	public String toString() {
 		return String.format("Employee [%s %s, %s %s %s %s]", 
-				empNo, empName, title, manager, salary, dept.getDeptNo());
+				empNo, empName, title, manager.getEmpNo(), salary, dept.getDeptNo());//manager와 dept 번호로 받기
 	}
 	
 	
