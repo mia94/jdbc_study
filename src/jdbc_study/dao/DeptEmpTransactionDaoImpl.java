@@ -39,12 +39,28 @@ public class DeptEmpTransactionDaoImpl implements DeptEmpTransactionDao {
 			empPstmt.setInt(4, emp.getManager().getEmpNo());
 			empPstmt.setInt(5, emp.getSalary());
 			empPstmt.setInt(6, emp.getDept().getDeptNo());
+			LogUtil.prnLog(empPstmt);
 			result += empPstmt.executeUpdate();
 		
 		}catch(SQLException e) {
-			
+			try {
+				conn.rollback();
+				conn.setAutoCommit(true);
+				LogUtil.prnLog("rollback()");
+			} catch (SQLException e1) { //롤백을 하다가 발생하는 에러
+				LogUtil.prnLog(e1.getMessage());
+			}
 		}finally {
-			
+			try {
+				if(empPstmt != null)
+					empPstmt.close();
+				if(deptPstmt != null)
+					deptPstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(SQLException e1) {
+				LogUtil.prnLog(e1.getMessage());
+			}
 		}
 		
 		
