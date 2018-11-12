@@ -57,7 +57,7 @@ public class UserDetailDaoImplTest {
 		byte[] pic = null; 
 		String imgPath = System.getProperty("user.dir")+ 
 						 System.getProperty("file.separator")+ "images" + 
-						 System.getProperty("file.separator")+"seohyunjin.jpg"; 
+						 System.getProperty("file.separator")+"cherry.jpg"; 
 		File file = new File(imgPath); 
 		try (InputStream is = new FileInputStream(file)){ 
 			pic = new byte[is.available()]; 
@@ -81,5 +81,27 @@ public class UserDetailDaoImplTest {
 		File selImg = new File(realPath); 
 		Assert.assertEquals(selImg.exists(), true);
 	}
+	
+	@Test
+	public void test3SelectUserDetail() throws SQLException { 
+		UserDetail userDetail = new UserDetail(1); 
+		UserDetail searchUser = dao.selectUserDetail(userDetail); 
+		LogUtil.prnLog(searchUser.toString()); 
+		Assert.assertEquals(userDetail.getId(), searchUser.getId());
+	}
+	
 
+	@Test
+	public void test4DeleteUserDetail() throws FileNotFoundException, SQLException, IOException { 
+		UserDetail userDetail = new UserDetail(1); 
+		int result = dao.deleteUserDetail(userDetail); 
+		Assert.assertEquals(1, result);
+	}
 }
+
+
+
+
+
+
+
